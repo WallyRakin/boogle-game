@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Home</title>
+{% endblock %}
+
+{% block content %}
+<div id="game-area">
+    <div id="board-container">
+        <table id="board">
+            {% for row in row %}
+            <tr>
+                {% for col in col %}
+                <td id="{{row}}-{{col}}">
+                    <p>{{board[row][col]}}</p>
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div id="info-area">
+        <div id="word-area">
+            <p>Current word:</p>
+            <h2>"<span id="current-word"></span>"</h2>
+        </div>
+        <div id="score-area">
+            <p>Score: <span id="score">0</span></p>
+        </div>
+        <div id="clock-area">
+            <p id="countdown"></p>
+        </div>
+        <div id="match-area">
+            <p>Matches:</p>
+            <ul id="valid-matches"></ul>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/static/word.js"></script>
+<script src="/static/game_logic.js"></script>
+<link rel="stylesheet" href="/static/style.css">
+{% endblock %}
