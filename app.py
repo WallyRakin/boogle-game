@@ -10,16 +10,22 @@ app.secret_key = 'your_secret_key_here'
 
 @app.route("/")
 def home():
-    board = boggle_game.make_board()
-    session['data'] = json.dumps(board)
-    session['end-time'] = ((datetime.now() +
-                           timedelta(minutes=2)).strftime('%Y-%m-%d %H:%M:%S'))
-    session['valid-words'] = '[]'
-    # session['invalid-words'] = '[]'
-    session['found-words'] = '[]'
-    session['score'] = '0'
-    print(json.dumps(board))
-    return render_template('home.html', board=board, row=range(len(board)), col=range(len(board[0])), data=json.dumps(board))
+    # creates a new session if a valid session is not already available
+    if not (session['data'] and session['end-time'] and session['valid-words'] and session['found-words'] and session['score']) or (datetime.now() > datetime.strptime(session.get('end-time'), "%Y-%m-%d %H:%M:%S")):
+        board = boggle_game.make_board()
+        session['data'] = json.dumps(board)
+        session['end-time'] = ((datetime.now() +
+                                timedelta(minutes=2)).strftime('%Y-%m-%d %H:%M:%S'))
+        session['valid-words'] = '[]'
+        # session['invalid-words'] = '[]'
+        session['found-words'] = '[]'
+        session['score'] = '0'
+        # print(json.dumps(board))
+    else:
+        board = json.loads(session.get('data'))
+    found_words = json.loads(session.get('found-words'))
+    score = int(session.get('score'))
+    return render_template('home.html', board=board, row=range(len(board)), col=range(len(board[0])), data=json.dumps(board), found_words=found_words, score=score)
 
 
 @app.route("/game", methods=['GET', 'POST'])

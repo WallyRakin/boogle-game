@@ -25,14 +25,22 @@
             <h2>"<span id="current-word"></span>"</h2>
         </div>
         <div id="score-area">
-            <p>Score: <span id="score">0</span></p>
+            <p>Score: <span id="score">{{score}}</span></p>
         </div>
         <div id="clock-area">
             <p id="countdown"></p>
         </div>
         <div id="match-area">
             <p>Matches:</p>
-            <ul id="valid-matches"></ul>
+            <ul id="valid-matches">
+
+                {% for word in found_words %}
+                <li>
+                    {{word}}
+                </li>
+                {% endfor %}
+
+            </ul>
         </div>
     </div>
 </div>

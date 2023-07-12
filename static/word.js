@@ -70,5 +70,8 @@ class Word {
         return 'pass';
     };
 
-    submitWord() { return this.word.toLocaleLowerCase() }
+    submitWord() {
+        this.possibleCells = [];
+        return this.word.toLocaleLowerCase();
+    }
 }

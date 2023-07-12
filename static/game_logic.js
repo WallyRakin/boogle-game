@@ -62,6 +62,9 @@ document.addEventListener('DOMContentLoaded', async function (e) {
             score.innerText = Number(score.innerText) + 100;
             validMatches.append(match);
         }
+        else if (data === 'word is too short') {
+            alert(data);
+        };
 
         word = null;
         currentWord.innerText = '';
