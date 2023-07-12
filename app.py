@@ -32,7 +32,7 @@ def home():
 def game():
 
     if request.method == 'GET':
-        return jsonify({"board": json.loads(session.get('data')), "endTime": session.get('end-time')})
+        return jsonify({"board": json.loads(session.get('data')), "endTime": session.get('end-time'), "score": session.get('score')})
     elif request.method == 'POST':
         data = request.get_json()
         word = data.get("word")
