@@ -3,7 +3,8 @@ let currentWord = document.querySelector('#current-word');
 let validMatches = document.querySelector('#valid-matches');
 let countdownElement = document.querySelector("#countdown");
 let boardContainer = document.querySelector('#board-container');
-let score = document.querySelector('#score');
+let score = 0;
+let scoreElement = document.querySelector('#score');
 let gameArea = document.querySelector('#game-area');
 let isMouseDown = false;
 let word = null;
@@ -12,6 +13,10 @@ document.addEventListener('DOMContentLoaded', async function (e) {
     let game = await axios.get('/game').then(a => { return a.data });
     let board = game.board;
     let endTime = new Date(game.endTime);
+
+
+    score += Number(game.score);
+    scoreElement.innerText = score;
 
     let countdownFunction = setInterval(function () {
         let now = new Date().getTime();
@@ -31,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async function (e) {
             table.parentNode.replaceChild(newTable, table);
 
             let gameOverMsg = document.createElement('h1');
-            gameOverMsg.innerText = `Times up! Final score: ${score.innerText}`;
+            gameOverMsg.innerText = `Times up! Final score: ${score}`;
             document.body.prepend(gameOverMsg);
         }
     }, 1000);
@@ -59,7 +64,8 @@ document.addEventListener('DOMContentLoaded', async function (e) {
         let match = document.createElement('li');
         match.innerText = word.submitWord();
         if (data === 'ok') {
-            score.innerText = Number(score.innerText) + 100;
+            score += 100;
+            scoreElement.innerText = score;
             validMatches.append(match);
         }
         else if (data === 'word is too short') {
