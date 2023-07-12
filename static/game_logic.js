@@ -3,7 +3,6 @@ let currentWord = document.querySelector('#current-word');
 let validMatches = document.querySelector('#valid-matches');
 let countdownElement = document.querySelector("#countdown");
 let boardContainer = document.querySelector('#board-container');
-let score = 0;
 let scoreElement = document.querySelector('#score');
 let gameArea = document.querySelector('#game-area');
 let isMouseDown = false;
@@ -15,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async function (e) {
     let endTime = new Date(game.endTime);
 
 
-    score += Number(game.score);
+    let score = Number(game.score);
     scoreElement.innerText = score;
 
     let countdownFunction = setInterval(function () {
